@@ -18,7 +18,6 @@ const routes = [
   {
     path: '/contact',
     name: 'contact',
-    redirect:'/about',
     component: () => import('../views/ContactView.vue')
   },
   
