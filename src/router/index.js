@@ -38,7 +38,11 @@ const routes = [
       }
     ],
     
-  }
+  }, {
+    path: '/UpdateHeader',
+    name: 'UpdateHeader',
+    component: () => import('../views/UpdateHeaderView.vue')
+  },
 ]
 
 const router = new VueRouter({
