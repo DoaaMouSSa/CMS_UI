@@ -33,8 +33,8 @@
       info:null,
     }
   },beforeCreate(){
-    axios.get('http://localhost:4220/api/Header/GetData')
-    .then(response => (this.info = response.data.payload))
+     axios.get('http://localhost:4220/api/Header/GetData')
+     .then(response => (this.info = response.data.payload))
   },
   created(){
        this.newLogoName=this.info.logoName
@@ -43,8 +43,14 @@
     onFileChange(e){
         const file=e.target.files[0];
         this.url=URL.createObjectURL(file);
-       // var imageFile=document.querySelector('#uploadFile')
+        var imageFile=document.querySelector('#uploadFile')
         console.log(file);
+        console.log(imageFile.files[0]);
+        const formData = new FormData()
+        formData.append('id', 1)
+
+    formData.append('Imagefile', this.file)
+    console.log(formData)
     },
      updateLogoName(){
         axios.post("http://localhost:4220/api/Header/ChangeLogoName",{
@@ -52,11 +58,8 @@
           data:this.newLogoName,
         }).then(res=>console.log(res));
     }, updateLogoImage(){
-        const formData = new FormData()
-        formData.append('id', 1)
-
-    formData.append('Imagefile', this.file)
-        axios.post("http://localhost:4220/api/Header/ChangeLogoImage",formData)
+       
+        axios.post("http://localhost:4220/api/Header/ChangeLogoImage")
         .then(res=>console.log(res))
         .catch((e) => {
             console.log(e)
