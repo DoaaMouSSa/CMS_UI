@@ -41,24 +41,8 @@
           <img class="preview my-3" :src="previewImage" alt="" />
         </div>
       </div>
+  </div>
   
-      <div v-if="message" class="alert alert-secondary" role="alert">
-        {{ message }}
-      </div>
-  
-      <div class="card mt-3">
-        <div class="card-header">List of Images</div>
-        <ul class="list-group list-group-flush">
-          <li
-            class="list-group-item"
-            v-for="(image, index) in imageInfos"
-            :key="index"
-          >
-            <a :href="image.url">{{ image.name }}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
   </template>
   
   <script>
@@ -70,9 +54,7 @@
       return {
         currentImage: undefined,
         previewImage: undefined,
-  
-        progress: 0,
-        message: "",
+          message: "",
   
         imageInfos: [],
       };
@@ -85,9 +67,7 @@
         this.message = "";
       },
   
-      upload() {
-        this.progress = 0;
-  
+      upload() {  
         UploadService.upload(this.currentImage, (event) => {
           this.progress = Math.round((100 * event.loaded) / event.total);
         })
@@ -104,11 +84,7 @@
             this.currentImage = undefined;
           });
       },
-    },
-    mounted() {
-      UploadService.getFiles().then((response) => {
-        this.imageInfos = response.data;
-      });
+  
     },
   };
   </script>

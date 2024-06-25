@@ -43,27 +43,37 @@
         <label class="text-sm ml-3">Remember me</label>
       </div>
 
-      <button type="button" v-on:click="HandleLogin()"
-        class="px-6 py-2.5 w-full !mt-8 text-sm bg-red-700 hover:bg-red-600 text-white rounded">Submit</button>
-        <!-- <button type="button" v-on:click="this.$router.push('/');"
-        class="px-6 py-2.5 w-full !mt-8 text-sm bg-slate-300 hover:bg-red-600 text-white rounded">back To Home</button> -->
+      <button type="button" v-on:click="HandleLogin()" class="px-6 py-2.5 w-full !mt-8 text-sm bg-red-700 hover:bg-red-600 text-white rounded">Submit</button>
     </form>
   </div>
 </template>
 <script>
 import axios from 'axios';
+import router from '@/router';
 export default{
 data(){
   return{
     email:'',
-    password:''
+    password:'',
+    isSuccess:false,
   }
 },methods:{
- async HandleLogin(){
-      axios.post("",{
-        email:this.email,
+  HandleLogin(){
+    axios.post('http://localhost:4220/api/Auth/Login', 
+    { 
+     email:this.email,
         password:this.password,
-      }).then(res=>console.log(res));
+    })
+    .then(function(response){
+      const isAuthenticated = 
+        JSON.parse(response.data.isSuccess);
+       
+      if (isAuthenticated == true) {
+      router.push('/UpdateContent');
+      }else{
+        alert("wrong user name or password")
+      }
+    })
   }
 }
 }

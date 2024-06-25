@@ -3,13 +3,14 @@ import http from "../http-common";
 class UploadFilesService {
   upload(file, onUploadProgress) {
     let formData = new FormData();
-    formData.append("id", 1);
-
-    formData.append("Imagefile", file);
+    formData.append("ContentType", 3);
+    formData.append("Heading", 'first test');
+    formData.append("Text", 'first test');
+    formData.append("File", file);
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 
   }
-    return http.post("/Header/ChangeLogoImage", formData, {
+    return http.post("/Content/ChangeContent", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       },
@@ -17,9 +18,7 @@ class UploadFilesService {
     });
   }
 
-  getFiles() {
-    return http.get("/files");
-  }
+
 }
 
 export default new UploadFilesService();

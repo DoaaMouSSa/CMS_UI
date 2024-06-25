@@ -16,6 +16,11 @@ const routes = [
     component: () => import('../components/UploadFile.vue')
   },
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/DashboardView.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     component: () => import('../views/AboutView.vue')
@@ -44,9 +49,9 @@ const routes = [
     ],
     
   }, {
-    path: '/UpdateHeader',
-    name: 'UpdateHeader',
-    component: () => import('../views/UpdateHeaderView.vue')
+    path: '/UpdateContent',
+    name: 'UpdateContent',
+    component: () => import('../views/UpdateContentView.vue')
   },
 ]
 
