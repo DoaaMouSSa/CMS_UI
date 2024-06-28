@@ -5,12 +5,14 @@
          </p>
    <form class="space-y-4 font-[sans-serif] text-[#333] max-w-md mx-auto">
         <div class="relative flex items-center">
-          <input type="text"  :value="this.info.heading"
+          <input type="text"  :value="this.info.heading" v-on:change="getHeadingValue($event)"
             class="px-4 py-3 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all" />
         </div>
+          <p>{{this.newHeading}}</p>
+
         <div class="relative flex items-center">
-          <input type="text" :value="this.info.text"
-            class="px-4 py-3 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all" />
+          <textarea type="text" :value="this.info.text" v-on:change="getTextValue($event)"
+            class="px-4 py-3 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all" ></textarea>
         </div>
         <div class="relative flex items-center">
           <input
@@ -39,11 +41,12 @@
       return {
         currentImage: undefined,
         previewImage: undefined,
-        newHeading:'',
+        newHeading:'test',
         newText:'',
         message: "",
         imageInfos: [],
         info:null,
+        isSuccess:false,
       };
     },beforeCreate(){
      axios.get('http://localhost:4220/api/Content/GetHeroContent')
@@ -56,26 +59,34 @@
         this.progress = 0;
         this.message = "";
       },
-  
+      getHeadingValue(event) {
+            this.newHeading=event.target.value
+        },
+        getTextValue(event) {
+            this.newText=event.target.value
+        },
       updateContent() {
   
-        UploadService.upload(this.currentImage, (event) => {
-          this.progress = Math.round((100 * event.loaded) / event.total);
-        })
+        UploadService.upload(this.currentImage,this.newHeading,this.newText)
           .then((response) => {
             this.message = response.data.message;
-            return UploadService.getFiles();
+            this.isSuccess=response.data.isSuccess;
+            if(this.isSuccess==true)
+            {alert('changes updated successfully')}
+            else{
+              alert('error');
+
+            }
           })
           .then((images) => {
             this.imageInfos = images.data;
           })
           .catch((err) => {
-            this.progress = 0;
             this.message = "Could not upload the image! " + err;
             this.currentImage = undefined;
           });
       },
-  
+
     },
   };
   </script>

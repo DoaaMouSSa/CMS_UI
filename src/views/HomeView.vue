@@ -6,7 +6,6 @@
     <ProductCard/>
     <ProductInfo/>
     <InfoCard/>
-     <HorizontalCard/>
      <CustomFooter/>
   </div>
 </template>
@@ -18,7 +17,6 @@
  import ProductCard from '../components/ProductCard';
  import ProductInfo from '../components/ProductInfo';
  import InfoCard from '../components/InfoCard';
-import HorizontalCard from '../components/HorizontalCard';
 import CustomFooter from '../components/CustomFooter';
 export default {
   name: 'HomeView',
@@ -29,7 +27,6 @@ export default {
   ProductCard,
   ProductInfo,
   InfoCard,
-  HorizontalCard,
   CustomFooter,
   }
 }

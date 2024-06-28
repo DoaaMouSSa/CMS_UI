@@ -1,20 +1,17 @@
 import http from "../http-common";
 
 class UploadFilesService {
-  upload(file, onUploadProgress) {
+  upload(file,heading,text) {
     let formData = new FormData();
     formData.append("ContentType", 3);
-    formData.append("Heading", 'first test');
-    formData.append("Text", 'first test');
+    formData.append("Heading", heading);
+    formData.append("Text", text);
     formData.append("File", file);
-    for (var pair of formData.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
-  }
+  
     return http.post("/Content/ChangeContent", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       },
-      onUploadProgress
     });
   }
 
